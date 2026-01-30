@@ -1,9 +1,9 @@
 "use client"; // Necessário para usar hooks de navegação
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'; // Hook para identificar a página atual
+import { usePathname } from 'next/navigation'; 
 
 export default function Sidebar() {
-  const pathname = usePathname(); // Pega a rota atual (ex: "/" ou "/catalogo")
+  const pathname = usePathname(); // Pega a rota atual 
 
   const menuItems = [
     { name: "Início", href: "/" },
@@ -34,12 +34,12 @@ export default function Sidebar() {
               href={item.href}
               className="relative group cursor-pointer block"
             >
-              {/* Barra lateral amarela: Aparece se estiver ativo OU no hover */}
+              {/* Barra lateral amarela */}
               <span className={`absolute -left-8 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#c5a059] transition-all duration-300 ${
                 isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
               }`} />
-
-              {/* Texto: Fica dourado se estiver ativo OU no hover */}
+              {/*Muito dificil de fazer, ta maluco*/}
+              {/*  Fica dourado se estiver ativo ouu no hover */}
               <span className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 block ${
                 isActive 
                   ? "text-[#c5a059]" 

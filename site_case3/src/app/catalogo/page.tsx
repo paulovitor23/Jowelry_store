@@ -1,6 +1,6 @@
 import Sidebar from '@/components/Sidebar';
 
-// Mock de dados seguindo as imagens de referência
+
 const products = [
   { id: 1, name: "Anel Solitário", material: "Ouro Branco e Diamante 1ct", price: "R$ 15.000", category: "Anéis", img: "/products/anel-1.jpg" },
   { id: 2, name: "Colar Esplendor", material: "Ouro Amarelo e Safiras", price: "R$ 22.500", category: "Colares", img: "/products/colar-1.jpg" },
@@ -26,7 +26,7 @@ export default function Catalogo() {
             Catálogo
           </h2>
           
-          {/* Navegação por Categorias [Requisito Obrigatório] */}
+          {/* Navegação por categorias  */}
           <div className="flex justify-center gap-10 border-b border-gray-200 pb-4">
             {categories.map((cat) => (
               <button 
@@ -39,18 +39,18 @@ export default function Catalogo() {
           </div>
         </header>
 
-        {/* Grid de Produtos com Hierarquia Visual [Requisito Obrigatório] */}
+        {/* Grid de produtos com hierarquia visual */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {products.map((product) => (
             <div key={product.id} className="bg-white p-6 border border-gray-100 flex flex-col items-center group shadow-sm hover:shadow-md transition-shadow">
-              {/* Container da Imagem */}
+              {/* Container da imagem */}
               <div className="w-full aspect-square bg-[#f9f9f9] mb-6 flex items-center justify-center overflow-hidden">
                 <div className="text-[10px] text-gray-300 uppercase tracking-tighter">
                   Imagem: {product.name}
                 </div>
               </div>
 
-              {/* Dados da Peça */}
+              {/* Dados da peça */}
               <h3 className="font-serif text-lg text-gray-800 mb-1">{product.name}</h3>
               <p className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-3">
                 {product.material}
