@@ -1,9 +1,15 @@
+"use client"; // Necessário para usar hooks de navegação
+import Link from 'next/link';
+import { usePathname } from 'next/navigation'; // Hook para identificar a página atual
+
 export default function Sidebar() {
+  const pathname = usePathname(); // Pega a rota atual (ex: "/" ou "/catalogo")
+
   const menuItems = [
-    { name: "Início", active: true },
-    { name: "Coleções", active: false },
-    { name: "Sobre a Marca", active: false },
-    { name: "Meu Carrinho", active: false },
+    { name: "Início", href: "/" },
+    { name: "Coleções", href: "/catalogo" },
+    { name: "Sobre a Marca", href: "/sobre" },
+    { name: "Meu Carrinho", href: "/carrinho" },
   ];
 
   return (
@@ -18,18 +24,32 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex flex-col gap-10">
-        {menuItems.map((item) => (
-          <div key={item.name} className="relative group cursor-pointer">
-            {item.active && (
-              <span className="absolute -left-8 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#c5a059]" />
-            )}
-            <span className={`text-xs tracking-[0.2em] uppercase transition-colors ${
-              item.active ? "text-[#c5a059]" : "text-gray-400 group-hover:text-white"
-            }`}>
-              {item.name}
-            </span>
-          </div>
-        ))}
+        {menuItems.map((item) => {
+          // Verifica se o item é o que está aberto no momento
+          const isActive = pathname === item.href;
+
+          return (
+            <Link 
+              key={item.name} 
+              href={item.href}
+              className="relative group cursor-pointer block"
+            >
+              {/* Barra lateral amarela: Aparece se estiver ativo OU no hover */}
+              <span className={`absolute -left-8 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#c5a059] transition-all duration-300 ${
+                isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+              }`} />
+
+              {/* Texto: Fica dourado se estiver ativo OU no hover */}
+              <span className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 block ${
+                isActive 
+                  ? "text-[#c5a059]" 
+                  : "text-gray-400 group-hover:text-[#c5a059]" 
+              }`}>
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );

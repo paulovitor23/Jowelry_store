@@ -2,10 +2,10 @@
 export default function Hero() {
   return (
     <section className="relative h-[600px] w-full overflow-hidden flex items-center">
-      {/* Imagem de fundo baseada no seu mockup */}
+      {/* Imagem de fundo baseada no mockup */}
       <div 
         className="absolute inset-0 bg-cover bg-center" 
-        style={{ backgroundImage: "url('/path-to-your-model-image.jpg')" }}
+        style={{ backgroundImage: "url('/imagem_que_vou_botar_ainda.jpg')" }}
       />
       <div className="absolute inset-0 bg-black/30" />
       

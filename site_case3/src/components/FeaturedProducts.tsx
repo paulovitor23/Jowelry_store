@@ -15,7 +15,7 @@ export default function FeaturedProducts() {
         {products.map((item) => (
           <div key={item.id} className="w-72 flex flex-col items-center group cursor-pointer">
             <div className="w-full aspect-square bg-[#fcfbf9] flex items-center justify-center p-10 mb-6 border border-transparent group-hover:border-gray-100 transition-all shadow-sm">
-               {/* Substituir por <Image /> do Next.js */}
+               {}
                <div className="text-[10px] text-gray-300">IMAGEM DO PRODUTO</div>
             </div>
             <h4 className="font-serif text-lg text-gray-800">{item.name}</h4>
