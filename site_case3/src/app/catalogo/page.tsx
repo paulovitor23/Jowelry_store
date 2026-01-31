@@ -39,7 +39,7 @@ export default function Catalogo() {
           </div>
         </header>
 
-        {/* Grid de produtos com hierarquia visual */}
+        {/* Produtos com hierarquia visual */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {products.map((product) => (
             <div key={product.id} className="bg-white p-6 border border-gray-100 flex flex-col items-center group shadow-sm hover:shadow-md transition-shadow">

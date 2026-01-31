@@ -38,7 +38,7 @@ export default function Sidebar() {
               <span className={`absolute -left-8 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#c5a059] transition-all duration-300 ${
                 isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
               }`} />
-              {/*Muito dificil de fazer, ta maluco*/}
+              {/*Muito dificil de fazer*/}
               {/*  Fica dourado se estiver ativo ouu no hover */}
               <span className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 block ${
                 isActive 
