@@ -3,8 +3,7 @@ import Image from 'next/image';
 export default function Hero() {
   return (
     <section className="relative w-full h-[500px] bg-zinc-200 overflow-hidden flex items-center">
-      
-      {/* Imagem de fundo - Requisito da Nova Coleção */}
+      {/* Imagem de fundo */}
       <Image 
         src="/heroM.jpg" 
         alt="Destaque da Nova Coleção"
