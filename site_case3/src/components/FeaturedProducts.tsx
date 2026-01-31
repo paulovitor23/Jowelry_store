@@ -1,30 +1,67 @@
-const products = [
-  { id: 1, name: "Anel Solitário", material: "Ouro 18k", price: "R$ 4.500", img: "/anel.png" },
-  { id: 2, name: "Brincos de Pérola", material: "Ouro Branco", price: "R$ 2.200", img: "/brincos.png" },
-  { id: 3, name: "Relógio Clássico", material: "Aço e Ouro", price: "R$ 8.900", img: "/relogio.png" },
-];
+import Image from 'next/image';
 
 export default function FeaturedProducts() {
+  // Array simples de produtos para a home
+  const destaques = [
+    {
+      id: 1,
+      nome: "Anel Solitário",
+      material: "Ouro Branco e Diamante",
+      preco: "R$ 12.500",
+      foto: "/products/anelSolitario.jpg"
+    },
+    {
+      id: 2,
+      nome: "Colar Esplendor",
+      material: "Ouro Amarelo 18k",
+      preco: "R$ 8.900",
+      foto: "/products/colarEsplendor.jpg"
+    },
+    {
+      id: 3,
+      nome: "Brincos Gota",
+      material: "Pérolas e Safiras",
+      preco: "R$ 5.400",
+      foto: "/products/brincoGota.jpg"
+    }
+  ];
+
   return (
-    <section className="py-20 bg-white">
-      <h3 className="text-center font-serif text-2xl text-[#c5a059] mb-16 tracking-widest uppercase">
+    <section className="p-16 bg-white">
+      <h3 className="text-2xl font-serif uppercase tracking-widest mb-12 text-center">
         Mais Vendidos
       </h3>
-      
-      <div className="flex justify-center gap-12 px-10">
-        {products.map((item) => (
-          <div key={item.id} className="w-72 flex flex-col items-center group cursor-pointer">
-            <div className="w-full aspect-square bg-[#fcfbf9] flex items-center justify-center p-10 mb-6 border border-transparent group-hover:border-gray-100 transition-all shadow-sm">
-               {}
-               <div className="text-[10px] text-gray-300">IMAGEM DO PRODUTO</div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        {destaques.map((item) => (
+          <div key={item.id} className="flex flex-col items-center group">
+            {/* Container da Imagem */}
+            {/* Fiz, com dificuldade, mas foi, 'max-w-[px]' para limitar o tamanho */}
+            <div className="relative w-full max-w-[350px] aspect-square bg-zinc-100 mb-6 overflow-hidden rounded-sm">
+              <Image 
+                src={item.foto} 
+                alt={item.nome}
+                fill
+                // Usando object-cover e aspect-square para um quadrado perfeito
+                // Pequeno zoom quando passa o mouse no produto (trabalho demais)
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
             </div>
-            <h4 className="font-serif text-lg text-gray-800">{item.name}</h4>
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-1 mb-2">
+
+            {/* Informações Obrigatórias */}
+         
+            <h4 className="font-serif text-lg text-black">{item.nome}</h4>
+            <p className="text-[10px] uppercase tracking-widest text-zinc-400 mt-1">
               {item.material}
             </p>
-            <p className="text-[#c5a059] font-medium tracking-tight italic">
-              {item.price}
+            <p className="text-amber-700 mt-4 italic font-medium">
+              {item.preco}
             </p>
+
+            {/* TODO: Criar função para adicionar ao carrinho*/}
+            <button className="mt-6 text-[10px] border-b border-zinc-300 pb-1 hover:border-amber-600 transition text-black">
+              VER DETALHES
+            </button>
           </div>
         ))}
       </div>

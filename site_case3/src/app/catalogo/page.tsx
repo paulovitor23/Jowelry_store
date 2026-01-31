@@ -31,7 +31,7 @@ export default function Catalogo() {
             {categories.map((cat) => (
               <button 
                 key={cat} 
-                className="text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-[#c5a059] transition-colors focus:text-[#c5a059] focus:font-medium"
+                className="text-xs uppercase  text-gray-400 hover:text-[#c5a059] transition-colors focus:text-[#c5a059] focus:font-medium"
               >
                 {cat}
               </button>
