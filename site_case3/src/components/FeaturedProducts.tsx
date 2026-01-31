@@ -28,7 +28,7 @@ export default function FeaturedProducts() {
 
   return (
     <section className="p-16 bg-white">
-      <h3 className="text-2xl font-serif uppercase tracking-widest mb-12 text-center">
+      <h3 className="text-2xl font-serif uppercase tracking-widest mb-12 text-center text-black">
         Mais Vendidos
       </h3>
 
@@ -36,7 +36,7 @@ export default function FeaturedProducts() {
         {destaques.map((item) => (
           <div key={item.id} className="flex flex-col items-center group">
             {/* Container da Imagem */}
-            {/* Fiz, com dificuldade, mas foi, 'max-w-[px]' para limitar o tamanho */}
+            {/* Fiz 'max-w-[px]' para limitar o tamanho */}
             <div className="relative w-full max-w-[350px] aspect-square bg-zinc-100 mb-6 overflow-hidden rounded-sm">
               <Image 
                 src={item.foto} 
@@ -59,7 +59,8 @@ export default function FeaturedProducts() {
             </p>
 
             {/* TODO: Criar função para adicionar ao carrinho*/}
-            <button className="mt-6 text-[10px] border-b border-zinc-300 pb-1 hover:border-amber-600 transition text-black">
+            {/* Efeito maneiro do botao */}
+            <button className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] uppercase tracking-widest border-b border-[#c5a059] text-[#c5a059] pb-1">
               VER DETALHES
             </button>
           </div>
