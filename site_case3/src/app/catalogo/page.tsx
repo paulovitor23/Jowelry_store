@@ -1,10 +1,19 @@
-// src/app/catalogo/page.tsx
+"use client";
+import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'; // Importante para a navegação funcionar
-import { listaProdutos } from '@/data/produtos'; // Importando do arquivo central
+import Link from 'next/link';
+import { listaProdutos } from '@/data/produtos';
 
 export default function Catalogo() {
-  const categories = ["Anéis", "Colares", "Brincos", "Relógios"];
+  // Estado para controlar o filtro. Começando com "todos"
+  const [categoriaAtiva, setCategoriaAtiva] = useState("Todos");
+  
+  const categorias = ["Todos", "Anéis", "Colares", "Brincos", "Relógios"];
+
+  // Lógica de Filtro: se for "todos", mostra tudo. Se não, filtra pela categoria
+  const produtosFiltrados = categoriaAtiva === "Todos" 
+    ? listaProdutos 
+    : listaProdutos.filter(p => p.category === categoriaAtiva);
 
   return (
     <div className="p-12 bg-[#fcfbf9] min-h-screen">
@@ -13,12 +22,17 @@ export default function Catalogo() {
           Catálogo
         </h2>
         
-        {/* Navegação por categorias */}
+        {/* Navegação por categorias interativa */}
         <div className="flex justify-center gap-10 border-b border-gray-200 pb-4">
-          {categories.map((cat) => (
+          {categorias.map((cat) => (
             <button 
               key={cat} 
-              className="text-xs uppercase text-gray-400 hover:text-[#c5a059] transition-colors focus:text-[#c5a059] focus:font-medium tracking-widest"
+              onClick={() => setCategoriaAtiva(cat)} //Muda o filtro ao clicar
+              className={`text-xs uppercase tracking-widest transition-all ${
+                categoriaAtiva === cat 
+                ? "text-[#c5a059] font-bold border-b-2 border-[#c5a059] pb-4 -mb-[18px]" 
+                : "text-gray-400 hover:text-[#c5a059]"
+              }`}
             >
               {cat}
             </button>
@@ -26,11 +40,11 @@ export default function Catalogo() {
         </div>
       </header>
 
+      {/* Grid que se adapta conforme o filtro */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {listaProdutos.map((product) => (
-          <div key={product.id} className="bg-white p-6 border border-gray-100 flex flex-col items-center group shadow-sm hover:shadow-md transition-shadow">
+        {produtosFiltrados.map((product) => (
+          <div key={product.id} className="bg-white p-6 border border-gray-100 flex flex-col items-center group shadow-sm hover:shadow-md transition-all">
             
-            {/* Container da imagem usando next image */}
             <div className="relative w-full aspect-square bg-[#f9f9f9] mb-6 overflow-hidden">
               <Image 
                 src={product.img} 
@@ -40,7 +54,6 @@ export default function Catalogo() {
               />
             </div>
 
-            {/* Dados da peça */}
             <h3 className="font-serif text-lg text-black mb-1 text-center">{product.name}</h3>
             <p className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-3 text-center">
               {product.material}
@@ -49,10 +62,9 @@ export default function Catalogo() {
               {product.price}
             </p>
             
-            {/* Troquei o button por um link dinâmico */}
             <Link 
               href={`/catalogo/${product.id}`}
-              className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] uppercase tracking-widest border-b border-[#c5a059] text-[#c5a059] pb-1 hover:text-black hover:border-black"
+              className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] uppercase tracking-widest border-b border-[#c5a059] text-[#c5a059] pb-1"
             >
               Ver Detalhes
             </Link>

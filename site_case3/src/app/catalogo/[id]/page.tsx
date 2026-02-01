@@ -67,7 +67,6 @@ export default async function PaginaProduto({ params }: { params: Promise<{ id: 
             {produto.price} 
           </p>
 
-          {/* BOTÃO ATUALIZADO: Agora ele usa a lógica do context API para salvar o produto */}
           <AddToCartButton product={produto} />
           
           <p className="mt-6 text-[9px] text-zinc-400 text-center uppercase tracking-tighter">

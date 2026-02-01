@@ -33,7 +33,7 @@ export const listaProdutos = [
     material: "Aço e Ouro", 
     price: "R$ 12.000", 
     category: "Relógios", 
-    img: "/products/relogio-1.jpg",
+    img: "/products/relogioCronografo.jpg",
     desc: "Precisão absoluta e sofisticação em um design robusto que une a resistência do aço ao luxo do ouro."
   },
   { 
@@ -42,7 +42,7 @@ export const listaProdutos = [
     material: "Platina e Diamantes", 
     price: "R$ 18.000", 
     category: "Anéis", 
-    img: "/products/anel-2.jpg",
+    img: "/products/alianca.jpg",
     desc: "Uma celebração ao compromisso eterno, lapidada em platina pura com diamantes de alta classificação."
   },
   { 
@@ -51,7 +51,7 @@ export const listaProdutos = [
     material: "Ouro Branco", 
     price: "R$ 35.000", 
     category: "Colares", 
-    img: "/products/colar-2.jpg",
+    img: "/products/colar.jpg",
     desc: "Uma cascata contínua de luz em ouro branco, desenhada para destacar a elegância em eventos de gala."
   },
   { 
@@ -60,16 +60,16 @@ export const listaProdutos = [
     material: "Ouro Amarelo", 
     price: "R$ 6.500", 
     category: "Brincos", 
-    img: "/products/brincos-2.jpg",
+    img: "/products/brincoArgola.jpg",
     desc: "Ouro amarelo 18k com acabamento polido espelhado, o acessório essencial para um brilho diário sutil."
   },
   { 
     id: 8, 
     name: "Relógio Automático", 
-    material: "Couro e Ouro", 
+    material: "Prata Esterina", 
     price: "R$ 14.500", 
     category: "Relógios", 
-    img: "/products/relogio-2.jpg",
+    img: "/products/relogioAutomatico.jpg",
     desc: "A excelência da engenharia mecânica automática envolta em ouro maciço com pulseira de couro legítimo."
   },
 ];
