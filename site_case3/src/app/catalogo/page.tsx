@@ -1,16 +1,7 @@
-
+// src/app/catalogo/page.tsx
 import Image from 'next/image';
-
-const products = [
-  { id: 1, name: "Anel Solitário", material: "Ouro Branco e Diamante 1ct", price: "R$ 15.000", category: "Anéis", img: "/products/anelSolitario.jpg" },
-  { id: 2, name: "Colar Esplendor", material: "Ouro Amarelo e Safiras", price: "R$ 22.500", category: "Colares", img: "/products/colarEsplendor.jpg" },
-  { id: 3, name: "Brincos Gota", material: "Ouro Rosé e Pérolas", price: "R$ 8.900", category: "Brincos", img: "/products/brincoGota.jpg" },
-  { id: 4, name: "Relógio Cronógrafo", material: "Aço e Ouro", price: "R$ 12.000", category: "Relógios", img: "/products/relogio-1.jpg" },
-  { id: 5, name: "Anel Aliança Eterna", material: "Platina e Diamantes", price: "R$ 18.000", category: "Anéis", img: "/products/anel-2.jpg" },
-  { id: 6, name: "Colar Riviera", material: "Ouro Branco", price: "R$ 35.000", category: "Colares", img: "/products/colar-2.jpg" },
-  { id: 7, name: "Brincos Argola", material: "Ouro Amarelo", price: "R$ 6.500", category: "Brincos", img: "/products/brincos-2.jpg" },
-  { id: 8, name: "Relógio Automático", material: "Couro e Ouro", price: "R$ 14.500", category: "Relógios", img: "/products/relogio-2.jpg" },
-];
+import Link from 'next/link'; // Importante para a navegação funcionar
+import { listaProdutos } from '@/data/produtos'; // Importando do arquivo central
 
 export default function Catalogo() {
   const categories = ["Anéis", "Colares", "Brincos", "Relógios"];
@@ -25,7 +16,6 @@ export default function Catalogo() {
         {/* Navegação por categorias */}
         <div className="flex justify-center gap-10 border-b border-gray-200 pb-4">
           {categories.map((cat) => (
-            /* Mudanca de cor ao passar o mouse em cima */
             <button 
               key={cat} 
               className="text-xs uppercase text-gray-400 hover:text-[#c5a059] transition-colors focus:text-[#c5a059] focus:font-medium tracking-widest"
@@ -36,9 +26,8 @@ export default function Catalogo() {
         </div>
       </header>
 
-    
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {products.map((product) => (
+        {listaProdutos.map((product) => (
           <div key={product.id} className="bg-white p-6 border border-gray-100 flex flex-col items-center group shadow-sm hover:shadow-md transition-shadow">
             
             {/* Container da imagem usando next image */}
@@ -60,10 +49,13 @@ export default function Catalogo() {
               {product.price}
             </p>
             
-            {/* TODO: Link para página individual */}
-            <button className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] uppercase tracking-widest border-b border-[#c5a059] text-[#c5a059] pb-1">
+            {/* Troquei o button por um link dinâmico */}
+            <Link 
+              href={`/catalogo/${product.id}`}
+              className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] uppercase tracking-widest border-b border-[#c5a059] text-[#c5a059] pb-1 hover:text-black hover:border-black"
+            >
               Ver Detalhes
-            </button>
+            </Link>
           </div>
         ))}
       </div>
