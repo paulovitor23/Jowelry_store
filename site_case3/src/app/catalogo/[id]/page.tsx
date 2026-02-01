@@ -2,15 +2,15 @@
 import Image from 'next/image';
 import { listaProdutos } from '@/data/produtos'; 
 import Link from 'next/link';
-
+import AddToCartButton from '@/components/AddToCartButton'; 
 
 export default async function PaginaProduto({ params }: { params: Promise<{ id: string }> }) {
   
   const { id } = await params;
 
-  // Buscamos o produto na   lista centralizada
-  
-  const produto = listaProdutos.find(p => p.id );
+  // Usei '==' para que o número 1 seja igual ao texto "1"
+  // Resolvendo o bug que eu clicava em qualquer produto e ia para o 'Anel Solitario'
+ const produto = listaProdutos.find(p => p.id == id);
 
   // Tratamento de erro caso o ID não exista
   if (!produto) {
@@ -35,15 +35,17 @@ export default async function PaginaProduto({ params }: { params: Promise<{ id: 
       <div className="mt-12 flex flex-col md:flex-row gap-20 items-start">
         
         {/* LADO ESQUERDO: Foto grande da joia */}
-        <div className=" relative aspect-square w-full max-w-[500px]  overflow-hidden ">
+        <div className="relative aspect-square w-full max-w-[500px] overflow-hidden">
           <Image 
             src={produto.img} 
             alt={produto.name} 
             fill 
-            className="object-contain p-12" // Padding para a joia não encostar na borda
+            className="object-contain p-12"
+            priority
           />
         </div>
 
+        {/* LADO DIREITO: Informações da peça */}
         <div className="flex-1 max-w-md">
           <p className="text-[10px] text-amber-700 uppercase tracking-[0.3em] mb-2 font-medium">
             Coleção Exclusiva
@@ -57,9 +59,7 @@ export default async function PaginaProduto({ params }: { params: Promise<{ id: 
             {produto.material}
           </p>
           
-          {/* Descrição vinda do arquivo de dados */}
           <p className="text-zinc-600 leading-relaxed mb-10 text-sm">
-            {/* TODO: Tenho que botar na classe a opcao de descricao */}
             {produto.desc || "Uma peça exclusiva da joalheria Lívia Fontenelle, desenhada para capturar a luz e a elegância em cada detalhe artesanal."}
           </p>
 
@@ -67,10 +67,8 @@ export default async function PaginaProduto({ params }: { params: Promise<{ id: 
             {produto.price} 
           </p>
 
-          {/* Botão com o estilo premium */}
-          <button className="w-full bg-[#121212] text-white py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-black transition shadow-lg active:scale-[0.98]">
-            Adicionar ao Carrinho
-          </button>
+          {/* BOTÃO ATUALIZADO: Agora ele usa a lógica do context API para salvar o produto */}
+          <AddToCartButton product={produto} />
           
           <p className="mt-6 text-[9px] text-zinc-400 text-center uppercase tracking-tighter">
             Entrega premium em todo o Brasil

@@ -1,29 +1,22 @@
-// src/app/carrinho/page.tsx
+"use client"; 
+import { useCart } from '@/context/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Carrinho() {
-  const itensCarrinho = [
-    {
-      id: 1,
-      nome: "Anel Solitário",
-      material: "Ouro Branco e Diamante",
-      preco: 12500,
-      foto: "/products/anelSolitario.jpg",
-      qtd: 1
-    },
-    {
-      id: 2,
-      nome: "Colar Esplendor",
-      material: "Ouro Amarelo 18k",
-      preco: 8900,
-      foto: "/products/colarEsplendor.jpg",
-      qtd: 1
-    }
-  ];
+  // Peguei os itens reais
+  const { cartItems, removeFromCart } = useCart();
 
-  // Calculando o total de um jeito simples
-  const total = itensCarrinho.reduce((acc, item) => acc + item.preco, 0);
+  // Como o preço vem como string "R$ 15.000", precisamos converter para somar
+  const parsePrice = (priceStr: string) => {
+    // Remove tudo que não é número
+    return Number(priceStr.replace(/\D/g, '')) ;
+  };
+
+  const total = cartItems.reduce(
+    (acc, item) => acc + parsePrice(item.price) * item.quantity, 
+    0
+  );
 
   return (
     <div className="p-12 bg-[#fcfbf9] min-h-screen">
@@ -32,34 +25,37 @@ export default function Carrinho() {
       </h2>
 
       <div className="flex flex-col lg:flex-row gap-16">
-        {/* Lista de produtos */}
         <div className="flex-1">
-          {itensCarrinho.length > 0 ? (
+          {cartItems.length > 0 ? (
             <div className="flex flex-col gap-8">
-              {itensCarrinho.map((item) => (
+              {cartItems.map((item) => (
                 <div key={item.id} className="flex items-center gap-6 border-b border-gray-200 pb-8">
                   <div className="relative w-24 h-24 bg-white border border-gray-100 overflow-hidden">
                     <Image 
-                      src={item.foto} 
-                      alt={item.nome} 
+                      src={item.img} 
+                      alt={item.name} 
                       fill 
                       className="object-cover"
                     />
                   </div>
                   
                   <div className="flex-1">
-                    <h3 className="font-serif text-lg text-black">{item.nome}</h3>
+                    <h3 className="font-serif text-lg text-black">{item.name}</h3>
                     <p className="text-[10px] uppercase tracking-widest text-zinc-400 mt-1">
                       {item.material}
                     </p>
-                    <p className="text-sm text-zinc-500 mt-2">Qtd: {item.qtd}</p>
+                    <p className="text-sm text-zinc-500 mt-2">Qtd: {item.quantity}</p>
                   </div>
 
                   <div className="text-right">
                     <p className="text-[#c5a059] font-medium italic">
-                      R$ {item.preco.toLocaleString('pt-BR')}
+                      {item.price}
                     </p>
-                    <button className="text-[9px] uppercase tracking-tighter text-red-800 mt-4 hover:underline">
+                    {/* Agora o botão de remover funciona */}
+                    <button 
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-[9px] uppercase tracking-tighter text-red-800 mt-4 hover:underline"
+                    >
                       Remover
                     </button>
                   </div>
@@ -67,15 +63,22 @@ export default function Carrinho() {
               ))}
             </div>
           ) : (
-            <p className="text-zinc-500 italic">Seu carrinho está vazio.</p>
+            <div className="py-20 text-center">
+              <p className="text-zinc-500 italic mb-8">Seu carrinho está vazio.</p>
+              <Link href="/catalogo" className="bg-black text-white px-8 py-3 text-[10px] uppercase tracking-widest">
+                Explorar Coleções
+              </Link>
+            </div>
           )}
 
-          <Link href="/catalogo" className="inline-block mt-8 text-[10px] uppercase tracking-widest border-b border-black pb-1 text-black">
-            ← Continuar Comprando
-          </Link>
+          {cartItems.length > 0 && (
+            <Link href="/catalogo" className="inline-block mt-8 text-[10px] uppercase tracking-widest border-b border-black pb-1 text-black">
+              ← Continuar Comprando
+            </Link>
+          )}
         </div>
 
-        {/* Resumo do pedido */}
+        {/* Resumo do pedido dinâmico */}
         <div className="w-full lg:w-80 bg-white p-8 shadow-sm h-fit border border-gray-100">
           <h3 className="text-sm font-bold uppercase tracking-widest mb-6 text-black">
             Resumo
@@ -83,7 +86,9 @@ export default function Carrinho() {
           
           <div className="flex justify-between text-sm mb-4">
             <span className="text-zinc-500">Subtotal</span>
-            <span className="text-black">R$ {total.toLocaleString('pt-BR')}</span>
+            <span className="text-black">
+              {total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+            </span>
           </div>
           
           <div className="flex justify-between text-sm mb-8">
@@ -94,14 +99,15 @@ export default function Carrinho() {
           <div className="border-t border-gray-200 pt-6 mb-8 flex justify-between items-baseline">
             <span className="text-lg font-serif">Total</span>
             <span className="text-xl text-[#c5a059] font-serif">
-              R$ {total.toLocaleString('pt-BR')}
+              {total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             </span>
           </div>
 
-          <button className="w-full bg-[#121212] text-white py-4 text-[10px] uppercase tracking-[0.2em] hover:bg-black transition-colors">
+          <button className="w-full bg-[#121212] text-white py-4 text-[10px] uppercase tracking-[0.2em] hover:bg-black transition-colors disabled:bg-zinc-300"
+            disabled={cartItems.length === 0}
+          >
             Finalizar Compra
           </button>
-          
         </div>
       </div>
     </div>
